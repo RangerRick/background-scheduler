@@ -15,6 +15,7 @@ export type BackgroundTaskCallback = () => any;
 export type BackgroundTask = {
   identifier: BackgroundTaskIdentifier,
   type?: 'refresh' | 'processing',
+  earliestBeginDate?: Date,
 }
 
 export interface BackgroundSchedulerPlugin {

@@ -44,12 +44,13 @@ public class BackgroundScheduler: CAPPlugin {
             return;
         }
         let type = call.getString("type") ?? "refresh"
+        let earliestBeginDate = call.getDate("earliestBeginDate") ?? Date(timeIntervalSinceNow: 1)
 
         print("BackgroundScheduler: scheduling task " + identifier + "\n")
 
         if #available(iOS 13.0, *) {
-            let request = type == "refresh" ? BGAppRefreshTaskRequest(identifier: identifier) : BGProcessingTaskRequest(identifier: identifier);
-            request.earliestBeginDate = Date(timeIntervalSinceNow: 1)
+            let request = type == "refresh" ? BGAppRefreshTaskRequest(identifier: identifier) : BGProcessingTaskRequest(identifier: identifier)
+            request.earliestBeginDate = earliestBeginDate
             do {
                 try BGTaskScheduler.shared.submit(request)
             } catch {
